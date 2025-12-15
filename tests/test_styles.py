@@ -2,8 +2,8 @@
 
 from typing import get_args
 
-from metadata import ConnectionType, DataLevel, DataType
-from styles import CONNECTION_STYLES, DATA_LEVEL_STYLES, NODE_SHAPES
+from lineage.models import ConnectionType, DataLevel, DataType
+from lineage.config import CONNECTION_STYLES, DATA_LEVEL_STYLES, NODE_SHAPES
 
 
 class TestNodeShapes:

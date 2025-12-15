@@ -1,6 +1,6 @@
 """Unit tests for missing nodes detection."""
 
-from missing_nodes_detector import (
+from lineage.graph.missing_nodes import (
     extract_referenced_node_ids,
     extract_existing_node_ids,
     find_missing_node_ids,

@@ -5,7 +5,7 @@ from pathlib import Path
 
 from ruamel.yaml import YAML
 
-from metadata import Node
+from lineage.models import Node
 
 
 def _create_yaml_parser() -> YAML:

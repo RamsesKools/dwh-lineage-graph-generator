@@ -8,7 +8,7 @@ authors = [
 readme = "README.md"
 
 [tool.poetry]
-package-mode = false
+packages = [{include = "lineage", from = "src"}]
 
 [tool.poetry.dependencies]
 python = ">=3.12,<4"
@@ -20,6 +20,9 @@ pyyaml = "^6.0.3"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.4.2"
+
+[tool.poetry.scripts]
+lineage = "lineage.cli:cli"
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]

@@ -4,9 +4,9 @@ from typing import get_args
 
 import pytest
 
-from mmd_generator import MermaidGenerator, generate_legend
-from metadata import Connection, DataLevel, DataType, Node
-from styles import CONNECTION_STYLES, DATA_LEVEL_STYLES, NODE_SHAPES
+from lineage.export.mermaid import MermaidGenerator, generate_legend
+from lineage.models import Connection, DataLevel, DataType, Node
+from lineage.config import CONNECTION_STYLES, DATA_LEVEL_STYLES, NODE_SHAPES
 
 
 class TestMermaidGenerator:

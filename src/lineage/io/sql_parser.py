@@ -6,7 +6,7 @@ from pathlib import Path
 import sqlglot
 from sqlglot import exp
 
-from metadata import Node
+from lineage.models import Node
 
 
 def extract_nodes_from_sql_files(pattern: str) -> list[Node]:

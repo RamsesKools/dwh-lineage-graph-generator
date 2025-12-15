@@ -6,13 +6,13 @@ from typing import Optional
 
 import click
 
-from __init__ import __version__
-from extractor.sql_parser import extract_nodes_from_sql_files
-from extractor.yaml_writer import write_nodes_to_yaml
-from lineage_graph import LineageGraph
-from lineage_parser import load_lineage_file
-from mmd_generator import MermaidGenerator, generate_legend
-from missing_nodes_imputer import impute_missing_connecting_nodes
+from lineage import __version__
+from lineage.io.sql_parser import extract_nodes_from_sql_files
+from lineage.io.yaml_writer import write_nodes_to_yaml
+from lineage.graph.lineage_graph import LineageGraph
+from lineage.io.yaml_parser import load_lineage_file
+from lineage.export.mermaid import MermaidGenerator, generate_legend
+from lineage.graph.missing_nodes import impute_missing_connecting_nodes
 
 
 @click.command(

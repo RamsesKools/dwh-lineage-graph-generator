@@ -2,8 +2,8 @@
 
 from typing import Literal, get_args
 
-from metadata import Connection, DataLevel, DataType, Node
-from styles import CONNECTION_STYLES, DATA_LEVEL_STYLES, NODE_SHAPES
+from lineage.models import Connection, DataLevel, DataType, Node
+from lineage.config import CONNECTION_STYLES, DATA_LEVEL_STYLES, NODE_SHAPES
 
 Direction = Literal["LR", "RL", "TB", "BT"]
 

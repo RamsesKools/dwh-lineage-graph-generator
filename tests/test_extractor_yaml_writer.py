@@ -5,8 +5,8 @@ from pathlib import Path
 import pytest
 from ruamel.yaml import YAML
 
-from extractor.yaml_writer import write_nodes_to_yaml
-from metadata import Node
+from lineage.io.yaml_writer import write_nodes_to_yaml
+from lineage.models import Node
 
 
 class TestWriteNodesToYaml:

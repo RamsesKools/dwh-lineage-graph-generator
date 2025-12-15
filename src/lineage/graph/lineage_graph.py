@@ -4,7 +4,7 @@ from typing import Literal
 
 import networkx as nx
 
-from metadata import Connection, Node
+from lineage.models import Connection, Node
 
 FilterDirection = Literal["upstream", "downstream", "both"]
 

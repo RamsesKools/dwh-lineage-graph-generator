@@ -2,8 +2,8 @@
 
 import pytest
 
-from lineage_graph import LineageGraph
-from metadata import Connection, Node
+from lineage.graph.lineage_graph import LineageGraph
+from lineage.models import Connection, Node
 
 
 class TestLineageGraph:

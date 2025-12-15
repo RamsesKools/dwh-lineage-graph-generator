@@ -6,7 +6,7 @@ import pytest
 from click.testing import CliRunner
 from ruamel.yaml import YAML
 
-from cli import cli
+from lineage.cli import cli
 
 
 @pytest.fixture

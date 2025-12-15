@@ -1,7 +1,7 @@
 """Unit tests for metadata module."""
 
-from metadata import Connection, Node
-from styles import CONNECTION_STYLES, DEFAULT_CONNECTION_TYPE
+from lineage.models import Connection, Node
+from lineage.config import CONNECTION_STYLES, DEFAULT_CONNECTION_TYPE
 
 
 class TestNode:

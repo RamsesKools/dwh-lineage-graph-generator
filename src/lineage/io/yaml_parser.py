@@ -6,8 +6,8 @@ from typing import Any
 
 import yaml
 
-from metadata import Connection, Node
-from styles import DEFAULT_CONNECTION_TYPE
+from lineage.models import Connection, Node
+from lineage.config import DEFAULT_CONNECTION_TYPE
 
 
 def load_lineage_file(file_path: str | Path) -> tuple[list[Node], list[Connection]]:

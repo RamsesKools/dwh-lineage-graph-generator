@@ -4,12 +4,12 @@ from pathlib import Path
 
 import pytest
 
-from extractor.sql_parser import (
+from lineage.io.sql_parser import (
     extract_node_from_create,
     extract_nodes_from_sql_files,
     parse_sql_file,
 )
-from metadata import Node
+from lineage.models import Node
 
 
 class TestExtractNodeFromCreate:

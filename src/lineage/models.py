@@ -3,7 +3,7 @@
 from dataclasses import dataclass, field
 from typing import cast
 
-from styles import DEFAULT_CONNECTION_TYPE, DataType, DataLevel, ConnectionType
+from lineage.config import DEFAULT_CONNECTION_TYPE, DataType, DataLevel, ConnectionType
 
 
 @dataclass
