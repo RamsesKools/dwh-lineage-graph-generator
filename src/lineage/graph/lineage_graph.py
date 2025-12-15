@@ -176,9 +176,7 @@ class LineageGraph:
 
         # Convert back to our data types
         nodes = [self.nodes[node_id] for node_id in subgraph.nodes()]
-        connections = [
-            data["connection"] for _, _, data in subgraph.edges(data=True)
-        ]
+        connections = [data["connection"] for _, _, data in subgraph.edges(data=True)]
 
         return nodes, connections
 
@@ -205,9 +203,7 @@ class LineageGraph:
 
         # Convert back to our data types
         nodes = [self.nodes[node_id] for node_id in subgraph.nodes()]
-        connections = [
-            data["connection"] for _, _, data in subgraph.edges(data=True)
-        ]
+        connections = [data["connection"] for _, _, data in subgraph.edges(data=True)]
 
         return nodes, connections
 

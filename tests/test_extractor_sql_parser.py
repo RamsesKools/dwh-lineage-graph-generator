@@ -1,9 +1,5 @@
 """Unit tests for extractor.sql_parser module."""
 
-from pathlib import Path
-
-import pytest
-
 from lineage.io.sql_parser import (
     extract_node_from_create,
     extract_nodes_from_sql_files,
@@ -18,7 +14,6 @@ class TestExtractNodeFromCreate:
     def test_extract_view_node(self):
         """Test extracting node from CREATE VIEW statement."""
         import sqlglot
-        from sqlglot import exp
 
         sql = "CREATE VIEW schema_name.view_name AS SELECT * FROM schema1.table1"
         statements = sqlglot.parse(sql, read="redshift")
@@ -119,9 +114,7 @@ class TestParseSqlFile:
     def test_parse_single_statement(self, tmp_path):
         """Test parsing file with single CREATE statement."""
         sql_file = tmp_path / "single.sql"
-        sql_file.write_text(
-            "CREATE VIEW schema1.view1 AS SELECT * FROM source_table"
-        )
+        sql_file.write_text("CREATE VIEW schema1.view1 AS SELECT * FROM source_table")
 
         nodes = parse_sql_file(sql_file)
 
@@ -241,9 +234,7 @@ class TestExtractNodesFromSqlFiles:
         (tmp_path / "file1.sql").write_text(
             "CREATE VIEW schema1.view1 AS SELECT * FROM t1"
         )
-        (tmp_path / "file2.sql").write_text(
-            "CREATE TABLE schema1.table1 (id INT)"
-        )
+        (tmp_path / "file2.sql").write_text("CREATE TABLE schema1.table1 (id INT)")
         (tmp_path / "file3.sql").write_text(
             "CREATE VIEW schema2.view2 AS SELECT * FROM t2"
         )
@@ -266,9 +257,7 @@ class TestExtractNodesFromSqlFiles:
         (tmp_path / "root.sql").write_text(
             "CREATE VIEW schema1.root_view AS SELECT * FROM t1"
         )
-        (subdir / "nested.sql").write_text(
-            "CREATE TABLE schema1.nested_table (id INT)"
-        )
+        (subdir / "nested.sql").write_text("CREATE TABLE schema1.nested_table (id INT)")
 
         pattern = str(tmp_path / "**/*.sql")
         nodes = extract_nodes_from_sql_files(pattern)
@@ -326,7 +315,9 @@ class TestExtractNodesFromSqlFiles:
     def test_extract_node_structure(self, tmp_path):
         """Test that extracted nodes have correct structure."""
         sql_file = tmp_path / "test.sql"
-        sql_file.write_text("CREATE VIEW schema1.test_view AS SELECT * FROM schema2.source_table")
+        sql_file.write_text(
+            "CREATE VIEW schema1.test_view AS SELECT * FROM schema2.source_table"
+        )
 
         pattern = str(sql_file)
         nodes = extract_nodes_from_sql_files(pattern)

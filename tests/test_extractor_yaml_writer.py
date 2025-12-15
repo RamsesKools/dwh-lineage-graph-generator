@@ -1,8 +1,5 @@
 """Unit tests for extractor.yaml_writer module."""
 
-from pathlib import Path
-
-import pytest
 from ruamel.yaml import YAML
 
 from lineage.io.yaml_writer import write_nodes_to_yaml

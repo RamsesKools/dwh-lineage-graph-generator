@@ -51,7 +51,9 @@ class TestGenerateCommandIntegration:
             line.rstrip() for line in expected_content.strip().split("\n")
         ]
 
-        assert actual_lines == expected_lines, "Generated output does not match expected output"
+        assert actual_lines == expected_lines, (
+            "Generated output does not match expected output"
+        )
 
     def test_generate_with_different_directions(self, runner, test_data_dir, tmp_path):
         """Test generate command with different direction parameters."""
@@ -62,15 +64,26 @@ class TestGenerateCommandIntegration:
 
             result = runner.invoke(
                 cli,
-                ["generate_mermaid", str(input_file), "-o", str(output_file), "-d", direction],
+                [
+                    "generate_mermaid",
+                    str(input_file),
+                    "-o",
+                    str(output_file),
+                    "-d",
+                    direction,
+                ],
             )
 
             assert result.exit_code == 0, f"CLI failed for direction {direction}"
-            assert output_file.exists(), f"Output file not created for direction {direction}"
+            assert output_file.exists(), (
+                f"Output file not created for direction {direction}"
+            )
 
             # Verify the direction is in the output
             content = output_file.read_text()
-            assert f"graph {direction}" in content, f"Graph direction {direction} not found in output"
+            assert f"graph {direction}" in content, (
+                f"Graph direction {direction} not found in output"
+            )
 
     def test_generate_focus_both_directions(self, runner, test_data_dir, tmp_path):
         """Test generate with focus on node (both upstream and downstream)."""
@@ -80,7 +93,14 @@ class TestGenerateCommandIntegration:
 
         result = runner.invoke(
             cli,
-            ["generate_mermaid", str(input_file), "--focus", "dim_customer", "-o", str(actual_output)],
+            [
+                "generate_mermaid",
+                str(input_file),
+                "--focus",
+                "dim_customer",
+                "-o",
+                str(actual_output),
+            ],
         )
 
         assert result.exit_code == 0, f"CLI failed: {result.output}"
@@ -90,9 +110,13 @@ class TestGenerateCommandIntegration:
         expected_content = expected_output.read_text()
 
         actual_lines = [line.rstrip() for line in actual_content.strip().split("\n")]
-        expected_lines = [line.rstrip() for line in expected_content.strip().split("\n")]
+        expected_lines = [
+            line.rstrip() for line in expected_content.strip().split("\n")
+        ]
 
-        assert actual_lines == expected_lines, "Focus both directions output does not match"
+        assert actual_lines == expected_lines, (
+            "Focus both directions output does not match"
+        )
 
     def test_generate_focus_upstream(self, runner, test_data_dir, tmp_path):
         """Test generate with focus on upstream only."""
@@ -121,7 +145,9 @@ class TestGenerateCommandIntegration:
         expected_content = expected_output.read_text()
 
         actual_lines = [line.rstrip() for line in actual_content.strip().split("\n")]
-        expected_lines = [line.rstrip() for line in expected_content.strip().split("\n")]
+        expected_lines = [
+            line.rstrip() for line in expected_content.strip().split("\n")
+        ]
 
         assert actual_lines == expected_lines, "Focus upstream output does not match"
 
@@ -152,7 +178,9 @@ class TestGenerateCommandIntegration:
         expected_content = expected_output.read_text()
 
         actual_lines = [line.rstrip() for line in actual_content.strip().split("\n")]
-        expected_lines = [line.rstrip() for line in expected_content.strip().split("\n")]
+        expected_lines = [
+            line.rstrip() for line in expected_content.strip().split("\n")
+        ]
 
         assert actual_lines == expected_lines, "Focus downstream output does not match"
 
@@ -182,7 +210,9 @@ class TestGenerateCommandIntegration:
         expected_content = expected_output.read_text()
 
         actual_lines = [line.rstrip() for line in actual_content.strip().split("\n")]
-        expected_lines = [line.rstrip() for line in expected_content.strip().split("\n")]
+        expected_lines = [
+            line.rstrip() for line in expected_content.strip().split("\n")
+        ]
 
         assert actual_lines == expected_lines, "Direct only output does not match"
 
@@ -213,7 +243,9 @@ class TestGenerateCommandIntegration:
         expected_content = expected_output.read_text()
 
         actual_lines = [line.rstrip() for line in actual_content.strip().split("\n")]
-        expected_lines = [line.rstrip() for line in expected_content.strip().split("\n")]
+        expected_lines = [
+            line.rstrip() for line in expected_content.strip().split("\n")
+        ]
 
         assert actual_lines == expected_lines, "Depth limit output does not match"
 
@@ -234,9 +266,13 @@ class TestGenerateCommandIntegration:
         expected_content = expected_output.read_text()
 
         actual_lines = [line.rstrip() for line in actual_content.strip().split("\n")]
-        expected_lines = [line.rstrip() for line in expected_content.strip().split("\n")]
+        expected_lines = [
+            line.rstrip() for line in expected_content.strip().split("\n")
+        ]
 
-        assert actual_lines == expected_lines, "YAML format output does not match JSON output"
+        assert actual_lines == expected_lines, (
+            "YAML format output does not match JSON output"
+        )
 
 
 class TestLegendCommandIntegration:
@@ -248,7 +284,9 @@ class TestLegendCommandIntegration:
         actual_output = tmp_path / "actual_legend.mmd"
 
         # Run the CLI command
-        result = runner.invoke(cli, ["generate_legend_mermaid", "-o", str(actual_output)])
+        result = runner.invoke(
+            cli, ["generate_legend_mermaid", "-o", str(actual_output)]
+        )
 
         # Check command succeeded
         assert result.exit_code == 0, f"CLI failed: {result.output}"
@@ -266,7 +304,9 @@ class TestLegendCommandIntegration:
             line.rstrip() for line in expected_content.strip().split("\n")
         ]
 
-        assert actual_lines == expected_lines, "Generated legend does not match expected output"
+        assert actual_lines == expected_lines, (
+            "Generated legend does not match expected output"
+        )
 
 
 class TestExtractSqlCommandIntegration:
@@ -300,7 +340,9 @@ class TestExtractSqlCommandIntegration:
             line.rstrip() for line in expected_content.strip().split("\n")
         ]
 
-        assert actual_lines == expected_lines, "Extracted nodes do not match expected output"
+        assert actual_lines == expected_lines, (
+            "Extracted nodes do not match expected output"
+        )
 
     def test_extract_from_sql_multiple_schemas(self, runner, test_data_dir, tmp_path):
         """Test extract_from_sql with complex lineage across multiple schemas."""
@@ -330,7 +372,9 @@ class TestExtractSqlCommandIntegration:
             line.rstrip() for line in expected_content.strip().split("\n")
         ]
 
-        assert actual_lines == expected_lines, "Extracted nodes do not match expected output"
+        assert actual_lines == expected_lines, (
+            "Extracted nodes do not match expected output"
+        )
 
     def test_extract_from_sql_append_mode(self, runner, test_data_dir, tmp_path):
         """Test extract_from_sql with --append flag."""
@@ -338,14 +382,27 @@ class TestExtractSqlCommandIntegration:
 
         # First extraction
         result1 = runner.invoke(
-            cli, ["extract_from_sql", str(test_data_dir / "test_extract.sql"), "-o", str(output_file)]
+            cli,
+            [
+                "extract_from_sql",
+                str(test_data_dir / "test_extract.sql"),
+                "-o",
+                str(output_file),
+            ],
         )
         assert result1.exit_code == 0
         assert "Extracted 3 nodes" in result1.output
 
         # Second extraction with append (test_extract2 has 10 nodes, all new)
         result2 = runner.invoke(
-            cli, ["extract_from_sql", str(test_data_dir / "test_extract2.sql"), "-o", str(output_file), "--append"]
+            cli,
+            [
+                "extract_from_sql",
+                str(test_data_dir / "test_extract2.sql"),
+                "-o",
+                str(output_file),
+                "--append",
+            ],
         )
         assert result2.exit_code == 0
         assert "Appended 10 nodes" in result2.output
@@ -393,14 +450,21 @@ class TestExtractSqlCommandIntegration:
         assert len(data["nodes"]) == 2
 
         # Check customer_summary view
-        customer_summary = next(n for n in data["nodes"] if n["id"] == "analytics.customer_summary")
+        customer_summary = next(
+            n for n in data["nodes"] if n["id"] == "analytics.customer_summary"
+        )
         assert customer_summary["data_type"] == "view"
         assert set(customer_summary["select_from"]) == {"raw.customers", "raw.orders"}
 
         # Check dim_customer table
-        dim_customer = next(n for n in data["nodes"] if n["id"] == "warehouse.dim_customer")
+        dim_customer = next(
+            n for n in data["nodes"] if n["id"] == "warehouse.dim_customer"
+        )
         assert dim_customer["data_type"] == "table"
-        assert set(dim_customer["select_from"]) == {"analytics.customer_summary", "raw.customer_addresses"}
+        assert set(dim_customer["select_from"]) == {
+            "analytics.customer_summary",
+            "raw.customer_addresses",
+        }
 
 
 class TestImputeMissingConnectingNodesCommandIntegration:
@@ -420,7 +484,13 @@ class TestImputeMissingConnectingNodesCommandIntegration:
         output_file = tmp_path / "output.yaml"
 
         result = runner.invoke(
-            cli, ["impute_missing_connecting_nodes", str(input_file), "-o", str(output_file)]
+            cli,
+            [
+                "impute_missing_connecting_nodes",
+                str(input_file),
+                "-o",
+                str(output_file),
+            ],
         )
 
         assert result.exit_code == 0

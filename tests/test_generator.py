@@ -90,7 +90,9 @@ class TestMermaidGenerator:
 
         for conn_type, arrow in CONNECTION_STYLES.items():
             conn = Connection(
-                from_id="node1", to_id="node2", connection_type=conn_type  # type: ignore
+                from_id="node1",
+                to_id="node2",
+                connection_type=conn_type,  # type: ignore
             )
             result = gen._generate_connection_definition(conn)
 

@@ -53,7 +53,7 @@ class MermaidGenerator:
         """
         safe_id = self._sanitize_id(node.id)
         prefix, suffix = NODE_SHAPES.get(node.data_type, ("[", "]"))
-        return f"{safe_id}{prefix}\"{node.label}\"{suffix}"
+        return f'{safe_id}{prefix}"{node.label}"{suffix}'
 
     def _generate_connection_definition(self, connection: Connection) -> str:
         """Generate Mermaid syntax for a connection.
@@ -86,7 +86,6 @@ class MermaidGenerator:
                 class_defs.append(f"classDef {class_name} {style}")
 
         return class_defs
-
 
     def _generate_class_assignments(self) -> list[str]:
         """Generate class assignments for all nodes.
@@ -175,7 +174,7 @@ def generate_legend() -> str:
         node_id = f"shape_{idx}"
         prefix, suffix = NODE_SHAPES[data_type]
         label = data_type.replace("-", " ").title()
-        lines.append(f"{node_id}{prefix}\"{label}\"{suffix}")
+        lines.append(f'{node_id}{prefix}"{label}"{suffix}')
 
     lines.append("end")
     lines.append("")
@@ -188,7 +187,7 @@ def generate_legend() -> str:
     for idx, data_level in enumerate(data_levels):
         node_id = f"level_{idx}"
         label = data_level.capitalize()
-        lines.append(f"{node_id}[\"{label}\"]")
+        lines.append(f'{node_id}["{label}"]')
 
     lines.append("end")
     lines.append("")
@@ -204,8 +203,8 @@ def generate_legend() -> str:
         arrow = CONNECTION_STYLES[conn_type]
         label = conn_type.replace("-", " ").title()
 
-        lines.append(f"{from_id}[\"{label}\"]")
-        lines.append(f"{to_id}[\" \"]")
+        lines.append(f'{from_id}["{label}"]')
+        lines.append(f'{to_id}[" "]')
         lines.append(f"{from_id} {arrow} {to_id}")
 
     lines.append("end")

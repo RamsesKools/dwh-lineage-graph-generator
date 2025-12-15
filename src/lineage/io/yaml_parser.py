@@ -103,11 +103,13 @@ def _extract_connections_from_nodes(nodes_data: list[dict]) -> list[dict]:
                     if isinstance(source_id, dict):
                         source_id = source_id.get("id", source_id)
 
-                    connections.append({
-                        "from_id": source_id,
-                        "to_id": node_id,
-                        "connection_type": "select_from",
-                    })
+                    connections.append(
+                        {
+                            "from_id": source_id,
+                            "to_id": node_id,
+                            "connection_type": "select_from",
+                        }
+                    )
 
         # Handle connected_to connections (undirected line)
         if "connected_to" in node:
@@ -122,11 +124,13 @@ def _extract_connections_from_nodes(nodes_data: list[dict]) -> list[dict]:
                     if isinstance(connected_id, dict):
                         connected_id = connected_id.get("id", connected_id)
 
-                    connections.append({
-                        "from_id": node_id,
-                        "to_id": connected_id,
-                        "connection_type": "connected_to",
-                    })
+                    connections.append(
+                        {
+                            "from_id": node_id,
+                            "to_id": connected_id,
+                            "connection_type": "connected_to",
+                        }
+                    )
 
     return connections
 
@@ -185,13 +189,13 @@ def _parse_connections(connections_data: list[dict]) -> list[Connection]:
             connection = Connection(
                 from_id=conn_dict["from_id"],
                 to_id=conn_dict["to_id"],
-                connection_type=conn_dict.get("connection_type", DEFAULT_CONNECTION_TYPE),
+                connection_type=conn_dict.get(
+                    "connection_type", DEFAULT_CONNECTION_TYPE
+                ),
             )
             connections.append(connection)
         except KeyError as e:
-            raise ValueError(
-                f"Missing required field {e} in connection: {conn_dict}"
-            )
+            raise ValueError(f"Missing required field {e} in connection: {conn_dict}")
         except TypeError as e:
             raise ValueError(f"Invalid data type in connection: {e}")
 

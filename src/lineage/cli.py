@@ -344,7 +344,6 @@ def impute_missing_connecting_nodes_command(
         sys.exit(1)
 
 
-
 # Add commands to the group
 cli.add_command(extract_from_sql_command)
 cli.add_command(mmd_generate_command)

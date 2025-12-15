@@ -118,7 +118,9 @@ class TestConnection:
 
         for conn_type in connection_types:
             conn = Connection(
-                from_id="node1", to_id="node2", connection_type=conn_type  # type: ignore
+                from_id="node1",
+                to_id="node2",
+                connection_type=conn_type,  # type: ignore
             )
             assert conn.connection_type == conn_type
 
@@ -126,12 +128,8 @@ class TestConnection:
         """Test that two connections with same data are equal."""
         # Use second connection type for testing equality
         test_type = list(CONNECTION_STYLES.keys())[1]
-        conn1 = Connection(
-            from_id="node1", to_id="node2", connection_type=test_type
-        )
-        conn2 = Connection(
-            from_id="node1", to_id="node2", connection_type=test_type
-        )
+        conn1 = Connection(from_id="node1", to_id="node2", connection_type=test_type)
+        conn2 = Connection(from_id="node1", to_id="node2", connection_type=test_type)
 
         assert conn1 == conn2
 

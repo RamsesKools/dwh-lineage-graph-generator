@@ -15,6 +15,7 @@ from ruamel.yaml import YAML
 # Detection Functions
 # ============================================================================
 
+
 def extract_referenced_node_ids(nodes_data: list[dict[str, Any]]) -> set[str]:
     """
     Extract all node IDs referenced in select_from fields.
@@ -126,6 +127,7 @@ def create_missing_node(node_id: str) -> dict[str, Any]:
 # ============================================================================
 # Imputation Functions
 # ============================================================================
+
 
 class ImputationStats:
     """Track statistics about missing node imputation operations."""
