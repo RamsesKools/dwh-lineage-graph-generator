@@ -1,0 +1,21 @@
+graph LR
+base_customers["Base Customers"]
+dim_customer["Customer Dimension"]
+manual_adjustments[/"Manual Adjustments"\]
+raw_customers[("Raw Customers")]
+stg_customers(["Staging Customers"])
+
+base_customers --> dim_customer
+manual_adjustments --> base_customers
+raw_customers --> stg_customers
+stg_customers --> base_customers
+
+classDef baseStyle fill:#f3e5f5,stroke:#4a148c,stroke-width:2px
+classDef dimensionStyle fill:#e8f5e9,stroke:#1b5e20,stroke-width:3px
+classDef sourceStyle fill:#e1f5ff,stroke:#01579b,stroke-width:2px
+classDef stagingStyle fill:#fff3e0,stroke:#e65100,stroke-width:2px
+
+class base_customers baseStyle
+class dim_customer dimensionStyle
+class raw_customers,manual_adjustments sourceStyle
+class stg_customers stagingStyle

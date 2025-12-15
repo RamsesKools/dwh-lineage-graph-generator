@@ -1,0 +1,16 @@
+nodes:
+- id: lsbi_dm_eah.dim_customer
+  label: lsbi_dm_eah.dim_customer
+  data_type: table
+  data_level: unknown
+  select_from: []
+- id: lsbi_dwh_eah.dim_customer
+  label: lsbi_dwh_eah.dim_customer
+  data_type: view
+  data_level: unknown
+  select_from: []
+- id: lsbi_dwh_eah.fact_orders
+  label: lsbi_dwh_eah.fact_orders
+  data_type: view
+  data_level: unknown
+  select_from: []

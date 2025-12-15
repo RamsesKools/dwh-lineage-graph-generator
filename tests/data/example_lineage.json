@@ -1,0 +1,106 @@
+{
+  "nodes": [
+    {
+      "id": "raw_customers",
+      "label": "Raw Customers",
+      "data_type": "external-source",
+      "data_level": "source"
+    },
+    {
+      "id": "raw_orders",
+      "label": "Raw Orders",
+      "data_type": "external-source",
+      "data_level": "source"
+    },
+    {
+      "id": "manual_adjustments",
+      "label": "Manual Adjustments",
+      "data_type": "manual-source",
+      "data_level": "source"
+    },
+    {
+      "id": "stg_customers",
+      "label": "Staging Customers",
+      "data_type": "view",
+      "data_level": "staging"
+    },
+    {
+      "id": "stg_orders",
+      "label": "Staging Orders",
+      "data_type": "view",
+      "data_level": "staging"
+    },
+    {
+      "id": "base_customers",
+      "label": "Base Customers",
+      "data_type": "table",
+      "data_level": "base"
+    },
+    {
+      "id": "base_orders",
+      "label": "Base Orders",
+      "data_type": "table",
+      "data_level": "base"
+    },
+    {
+      "id": "dim_customer",
+      "label": "Customer Dimension",
+      "data_type": "table",
+      "data_level": "dimension"
+    },
+    {
+      "id": "fact_orders",
+      "label": "Orders Fact",
+      "data_type": "table",
+      "data_level": "fact"
+    },
+    {
+      "id": "export_customer_orders",
+      "label": "Customer Orders Export",
+      "data_type": "view",
+      "data_level": "export"
+    }
+  ],
+  "connections": [
+    {
+      "from_id": "raw_customers",
+      "to_id": "stg_customers"
+    },
+    {
+      "from_id": "raw_orders",
+      "to_id": "stg_orders"
+    },
+    {
+      "from_id": "stg_customers",
+      "to_id": "base_customers"
+    },
+    {
+      "from_id": "stg_orders",
+      "to_id": "base_orders"
+    },
+    {
+      "from_id": "manual_adjustments",
+      "to_id": "base_customers"
+    },
+    {
+      "from_id": "base_customers",
+      "to_id": "dim_customer"
+    },
+    {
+      "from_id": "base_orders",
+      "to_id": "fact_orders"
+    },
+    {
+      "from_id": "dim_customer",
+      "to_id": "fact_orders"
+    },
+    {
+      "from_id": "dim_customer",
+      "to_id": "export_customer_orders"
+    },
+    {
+      "from_id": "fact_orders",
+      "to_id": "export_customer_orders"
+    }
+  ]
+}

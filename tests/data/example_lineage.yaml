@@ -1,0 +1,67 @@
+nodes:
+  - id: raw_customers
+    label: Raw Customers
+    data_type: external-source
+    data_level: source
+
+  - id: raw_orders
+    label: Raw Orders
+    data_type: external-source
+    data_level: source
+
+  - id: manual_adjustments
+    label: Manual Adjustments
+    data_type: manual-source
+    data_level: source
+
+  - id: stg_customers
+    label: Staging Customers
+    data_type: view
+    data_level: staging
+    select_from:
+      - raw_customers
+
+  - id: stg_orders
+    label: Staging Orders
+    data_type: view
+    data_level: staging
+    select_from:
+      - raw_orders
+
+  - id: base_customers
+    label: Base Customers
+    data_type: table
+    data_level: base
+    select_from:
+      - stg_customers
+      - manual_adjustments
+
+  - id: base_orders
+    label: Base Orders
+    data_type: table
+    data_level: base
+    select_from:
+      - stg_orders
+
+  - id: dim_customer
+    label: Customer Dimension
+    data_type: table
+    data_level: dimension
+    select_from:
+      - base_customers
+
+  - id: fact_orders
+    label: Orders Fact
+    data_type: table
+    data_level: fact
+    select_from:
+      - base_orders
+      - dim_customer
+
+  - id: export_customer_orders
+    label: Customer Orders Export
+    data_type: view
+    data_level: export
+    select_from:
+      - dim_customer
+      - fact_orders

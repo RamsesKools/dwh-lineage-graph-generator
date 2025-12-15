@@ -1,0 +1,48 @@
+graph LR
+
+subgraph shapes [Node Shapes by Data Type]
+direction TB
+shape_0["Table"]
+shape_1(["View"])
+shape_2[("External Source")]
+shape_3{{"External Resourcelink"}}
+shape_4[/"Manual Source"\]
+shape_5["Unknown"]
+end
+
+subgraph levels [Data Levels and Colors]
+direction TB
+level_0["Source"]
+level_1["Staging"]
+level_2["Base"]
+level_3["Dimension"]
+level_4["Fact"]
+level_5["Export"]
+level_6["Unknown"]
+end
+
+subgraph connections [Connection Types]
+direction TB
+conn_from_0["Select_From"]
+conn_to_0[" "]
+conn_from_0 --> conn_to_0
+conn_from_1["Connected_To"]
+conn_to_1[" "]
+conn_from_1 --- conn_to_1
+end
+
+classDef sourceStyle fill:#e1f5ff,stroke:#01579b,stroke-width:2px
+classDef stagingStyle fill:#fff3e0,stroke:#e65100,stroke-width:2px
+classDef baseStyle fill:#f3e5f5,stroke:#4a148c,stroke-width:2px
+classDef dimensionStyle fill:#e8f5e9,stroke:#1b5e20,stroke-width:3px
+classDef factStyle fill:#fce4ec,stroke:#880e4f,stroke-width:3px
+classDef exportStyle fill:#fff9c4,stroke:#f57f17,stroke-width:2px
+classDef unknownStyle fill:#ffffff,stroke:#000000,stroke-width:1px
+
+class level_0 sourceStyle
+class level_1 stagingStyle
+class level_2 baseStyle
+class level_3 dimensionStyle
+class level_4 factStyle
+class level_5 exportStyle
+class level_6 unknownStyle
