@@ -267,3 +267,135 @@ class TestBuildTableName:
         table = parsed.find(exp.Table)
         result = _build_table_name(table)
         assert result == "table1"
+
+
+class TestQuotedIdentifiers:
+    """Test handling of quoted identifiers in SQL."""
+
+    def test_quoted_schema_and_table(self):
+        """Test extraction with quoted schema and table names."""
+        sql = """
+        CREATE VIEW "my_schema"."my_view" AS
+        SELECT * FROM "source_schema"."source_table"
+        """
+        parsed = sqlglot.parse_one(sql, dialect="redshift")
+        result = extract_lineage_from_statement(parsed)
+        assert result == ["source_schema.source_table"]
+
+    def test_mixed_quoted_unquoted(self):
+        """Test extraction with mix of quoted and unquoted identifiers."""
+        sql = """
+        CREATE VIEW schema1."MyView" AS
+        SELECT * FROM "schema2".table1
+        JOIN schema3."Table2"
+        """
+        parsed = sqlglot.parse_one(sql, dialect="redshift")
+        result = extract_lineage_from_statement(parsed)
+        assert result == ["schema2.table1", "schema3.Table2"]
+
+    def test_quoted_with_special_characters(self):
+        """Test quoted identifiers with special characters."""
+        sql = """
+        CREATE VIEW "my-schema"."my_view" AS
+        SELECT * FROM "source-schema"."source_table"
+        """
+        parsed = sqlglot.parse_one(sql, dialect="redshift")
+        result = extract_lineage_from_statement(parsed)
+        assert result == ["source-schema.source_table"]
+
+    def test_quoted_with_spaces(self):
+        """Test quoted identifiers with spaces."""
+        sql = """
+        CREATE VIEW "my schema"."my view" AS
+        SELECT * FROM "source schema"."source table"
+        """
+        parsed = sqlglot.parse_one(sql, dialect="redshift")
+        result = extract_lineage_from_statement(parsed)
+        assert result == ["source schema.source table"]
+
+    def test_case_sensitive_quoted_identifiers(self):
+        """Test that quoted identifiers preserve case."""
+        sql = """
+        CREATE VIEW schema1."MyView" AS
+        SELECT * FROM schema2."MyTable"
+        JOIN schema3."myTable"
+        """
+        parsed = sqlglot.parse_one(sql, dialect="redshift")
+        result = extract_lineage_from_statement(parsed)
+        # Should preserve case in quoted identifiers
+        assert "schema2.MyTable" in result
+        assert "schema3.myTable" in result
+
+
+class TestThreeLevelNamespace:
+    """Test handling of 3-level namespace (catalog.schema.table)."""
+
+    def test_three_level_qualified_table(self):
+        """Test extraction with catalog.schema.table format."""
+        sql = """
+        CREATE VIEW my_catalog.my_schema.my_view AS
+        SELECT * FROM source_catalog.source_schema.source_table
+        """
+        parsed = sqlglot.parse_one(sql, dialect="redshift")
+        result = extract_lineage_from_statement(parsed)
+        # Currently extracts schema.table, ignoring catalog
+        # This test documents current behavior
+        assert result == ["source_schema.source_table"]
+
+    def test_three_level_with_joins(self):
+        """Test 3-level namespace with multiple tables in joins."""
+        sql = """
+        CREATE VIEW catalog1.schema1.view1 AS
+        SELECT *
+        FROM catalog1.schema1.table1
+        JOIN catalog2.schema2.table2 ON table1.id = table2.id
+        """
+        parsed = sqlglot.parse_one(sql, dialect="redshift")
+        result = extract_lineage_from_statement(parsed)
+        assert result == ["schema1.table1", "schema2.table2"]
+
+    def test_mixed_two_and_three_level(self):
+        """Test mixing 2-level and 3-level qualified names."""
+        sql = """
+        CREATE VIEW schema1.view1 AS
+        SELECT *
+        FROM catalog1.schema2.table1
+        JOIN schema3.table2
+        """
+        parsed = sqlglot.parse_one(sql, dialect="redshift")
+        result = extract_lineage_from_statement(parsed)
+        # Both should be extracted (catalog ignored in 3-level)
+        assert result == ["schema2.table1", "schema3.table2"]
+
+    def test_quoted_three_level_namespace(self):
+        """Test 3-level namespace with quoted identifiers."""
+        sql = """
+        CREATE VIEW "catalog1"."schema1"."view1" AS
+        SELECT * FROM "catalog2"."schema2"."table1"
+        """
+        parsed = sqlglot.parse_one(sql, dialect="redshift")
+        result = extract_lineage_from_statement(parsed)
+        assert result == ["schema2.table1"]
+
+    def test_databricks_three_level(self):
+        """Test Databricks-style 3-level namespace."""
+        sql = """
+        CREATE VIEW main.analytics.customer_view AS
+        SELECT *
+        FROM main.raw.customers c
+        JOIN main.raw.orders o ON c.id = o.customer_id
+        """
+        parsed = sqlglot.parse_one(sql, dialect="databricks")
+        result = extract_lineage_from_statement(parsed)
+        # Should extract schema.table pairs
+        assert result == ["raw.customers", "raw.orders"]
+
+    def test_redshift_cluster_qualified(self):
+        """Test Redshift cluster-qualified names."""
+        sql = """
+        CREATE VIEW cluster1.schema1.view1 AS
+        SELECT * FROM cluster1.schema2.table1
+        """
+        parsed = sqlglot.parse_one(sql, dialect="redshift")
+        result = extract_lineage_from_statement(parsed)
+        assert result == ["schema2.table1"]
