@@ -360,14 +360,14 @@ class TestExtractSqlCommandIntegration:
 
         # Verify nodes from both files are present
         node_ids = [node["id"] for node in data["nodes"]]
-        assert "lsbi_dm_eah.dim_customer" in node_ids  # from test_extract
+        assert "datamart_schema.dim_customer" in node_ids  # from test_extract
         assert "source.raw_customers" in node_ids  # from test_extract2
         assert "staging.stg_customers" in node_ids  # from test_extract2
 
         # First 3 should be from test_extract (alphabetically sorted in first extraction)
-        assert data["nodes"][0]["id"] == "lsbi_dm_eah.dim_customer"
-        assert data["nodes"][1]["id"] == "lsbi_dwh_eah.dim_customer"
-        assert data["nodes"][2]["id"] == "lsbi_dwh_eah.fact_orders"
+        assert data["nodes"][0]["id"] == "analytics_schema.dim_customer"
+        assert data["nodes"][1]["id"] == "analytics_schema.fact_orders"
+        assert data["nodes"][2]["id"] == "datamart_schema.dim_customer"
 
         # Last 10 should be from test_extract2 (appended, also alphabetically sorted)
         appended_ids = node_ids[3:]

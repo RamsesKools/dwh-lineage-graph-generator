@@ -1,20 +1,20 @@
 nodes:
-- id: lsbi_dm_eah.dim_customer
-  label: lsbi_dm_eah.dim_customer
-  data_type: table
-  data_level: unknown
-  select_from:
-  - lsbi_dwh_eah.dim_customer
-- id: lsbi_dwh_eah.dim_customer
-  label: lsbi_dwh_eah.dim_customer
+- id: analytics_schema.dim_customer
+  label: analytics_schema.dim_customer
   data_type: view
   data_level: unknown
   select_from:
   - raw_data.customers
-- id: lsbi_dwh_eah.fact_orders
-  label: lsbi_dwh_eah.fact_orders
+- id: analytics_schema.fact_orders
+  label: analytics_schema.fact_orders
   data_type: view
   data_level: unknown
   select_from:
-  - lsbi_dwh_eah.dim_customer
+  - analytics_schema.dim_customer
   - raw_data.orders
+- id: datamart_schema.dim_customer
+  label: datamart_schema.dim_customer
+  data_type: table
+  data_level: unknown
+  select_from:
+  - analytics_schema.dim_customer
