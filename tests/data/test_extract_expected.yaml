@@ -3,14 +3,18 @@ nodes:
   label: lsbi_dm_eah.dim_customer
   data_type: table
   data_level: unknown
-  select_from: []
+  select_from:
+  - lsbi_dwh_eah.dim_customer
 - id: lsbi_dwh_eah.dim_customer
   label: lsbi_dwh_eah.dim_customer
   data_type: view
   data_level: unknown
-  select_from: []
+  select_from:
+  - raw_data.customers
 - id: lsbi_dwh_eah.fact_orders
   label: lsbi_dwh_eah.fact_orders
   data_type: view
   data_level: unknown
-  select_from: []
+  select_from:
+  - lsbi_dwh_eah.dim_customer
+  - raw_data.orders

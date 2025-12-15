@@ -6,6 +6,7 @@ from pathlib import Path
 import sqlglot
 from sqlglot import exp
 
+from lineage.io.sql_lineage_extractor import extract_lineage_from_statement
 from lineage.models import Node
 
 
@@ -16,7 +17,7 @@ def extract_nodes_from_sql_files(pattern: str) -> list[Node]:
         pattern: Glob pattern for SQL files (e.g., "sql/**/*.sql")
 
     Returns:
-        List of Node objects with empty select_from and None data_level
+        List of Node objects with extracted lineage in select_from and None data_level
     """
     nodes: dict[str, Node] = {}  # Use dict to deduplicate by id
 
@@ -106,10 +107,12 @@ def extract_node_from_create(statement: exp.Create) -> Node | None:
     # Determine data type
     data_type = "view" if statement.kind == "VIEW" else "table"
 
+    select_from = extract_lineage_from_statement(statement)
+
     return Node(
         id=node_id,
         label=node_id,
         data_type=data_type,
         data_level=None,
-        select_from=[],
+        select_from=select_from,
     )

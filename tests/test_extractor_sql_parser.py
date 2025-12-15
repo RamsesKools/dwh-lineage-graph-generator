@@ -20,7 +20,7 @@ class TestExtractNodeFromCreate:
         import sqlglot
         from sqlglot import exp
 
-        sql = "CREATE VIEW schema_name.view_name AS SELECT * FROM table1"
+        sql = "CREATE VIEW schema_name.view_name AS SELECT * FROM schema1.table1"
         statements = sqlglot.parse(sql, read="redshift")
         statement = statements[0]
 
@@ -31,7 +31,7 @@ class TestExtractNodeFromCreate:
         assert node.label == "schema_name.view_name"
         assert node.data_type == "view"
         assert node.data_level == "unknown"
-        assert node.select_from == []
+        assert node.select_from == ["schema1.table1"]
 
     def test_extract_table_node(self):
         """Test extracting node from CREATE TABLE statement."""
@@ -54,7 +54,7 @@ class TestExtractNodeFromCreate:
         """Test extracting node from CREATE TABLE AS SELECT."""
         import sqlglot
 
-        sql = "CREATE TABLE schema_name.new_table AS SELECT * FROM other_table"
+        sql = "CREATE TABLE schema_name.new_table AS SELECT * FROM schema2.other_table"
         statements = sqlglot.parse(sql, read="redshift")
         statement = statements[0]
 
@@ -63,6 +63,7 @@ class TestExtractNodeFromCreate:
         assert node is not None
         assert node.id == "schema_name.new_table"
         assert node.data_type == "table"
+        assert node.select_from == ["schema2.other_table"]
 
     def test_ignore_non_table_view(self):
         """Test that non-TABLE/VIEW creates are ignored."""
@@ -109,6 +110,7 @@ class TestExtractNodeFromCreate:
         assert node is not None
         assert node.id == "schema.complex_view"
         assert node.data_type == "view"
+        assert node.select_from == ["schema.table1", "schema.table2"]
 
 
 class TestParseSqlFile:
@@ -324,7 +326,7 @@ class TestExtractNodesFromSqlFiles:
     def test_extract_node_structure(self, tmp_path):
         """Test that extracted nodes have correct structure."""
         sql_file = tmp_path / "test.sql"
-        sql_file.write_text("CREATE VIEW schema1.test_view AS SELECT * FROM t1")
+        sql_file.write_text("CREATE VIEW schema1.test_view AS SELECT * FROM schema2.source_table")
 
         pattern = str(sql_file)
         nodes = extract_nodes_from_sql_files(pattern)
@@ -338,4 +340,4 @@ class TestExtractNodesFromSqlFiles:
         assert node.label == "schema1.test_view"
         assert node.data_type == "view"
         assert node.data_level == "unknown"
-        assert node.select_from == []
+        assert node.select_from == ["schema2.source_table"]

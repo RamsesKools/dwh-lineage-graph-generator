@@ -3,27 +3,35 @@ nodes:
   label: base.base_customers
   data_type: table
   data_level: unknown
-  select_from: []
+  select_from:
+  - source.manual_adjustments
+  - staging.stg_customers
 - id: base.base_orders
   label: base.base_orders
   data_type: table
   data_level: unknown
-  select_from: []
+  select_from:
+  - staging.stg_orders
 - id: dimension.dim_customer
   label: dimension.dim_customer
   data_type: table
   data_level: unknown
-  select_from: []
+  select_from:
+  - base.base_customers
 - id: export.export_customer_orders
   label: export.export_customer_orders
   data_type: view
   data_level: unknown
-  select_from: []
+  select_from:
+  - dimension.dim_customer
+  - fact.fact_orders
 - id: fact.fact_orders
   label: fact.fact_orders
   data_type: table
   data_level: unknown
-  select_from: []
+  select_from:
+  - base.base_orders
+  - dimension.dim_customer
 - id: source.manual_adjustments
   label: source.manual_adjustments
   data_type: table
@@ -43,9 +51,11 @@ nodes:
   label: staging.stg_customers
   data_type: view
   data_level: unknown
-  select_from: []
+  select_from:
+  - source.raw_customers
 - id: staging.stg_orders
   label: staging.stg_orders
   data_type: view
   data_level: unknown
-  select_from: []
+  select_from:
+  - source.raw_orders

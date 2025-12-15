@@ -373,6 +373,35 @@ class TestExtractSqlCommandIntegration:
         appended_ids = node_ids[3:]
         assert appended_ids == sorted(appended_ids)
 
+    def test_extract_from_sql_with_lineage(self, runner, test_data_dir, tmp_path):
+        """Test that lineage is extracted from SQL files."""
+        input_file = test_data_dir / "test_extract_demo.sql"
+        output_file = tmp_path / "demo_output.yaml"
+
+        result = runner.invoke(
+            cli, ["extract_from_sql", str(input_file), "-o", str(output_file)]
+        )
+
+        assert result.exit_code == 0, f"CLI failed: {result.output}"
+        assert "Extracted 2 nodes" in result.output
+
+        # Parse the output YAML
+        yaml = YAML()
+        with output_file.open("r") as f:
+            data = yaml.load(f)
+
+        assert len(data["nodes"]) == 2
+
+        # Check customer_summary view
+        customer_summary = next(n for n in data["nodes"] if n["id"] == "analytics.customer_summary")
+        assert customer_summary["data_type"] == "view"
+        assert set(customer_summary["select_from"]) == {"raw.customers", "raw.orders"}
+
+        # Check dim_customer table
+        dim_customer = next(n for n in data["nodes"] if n["id"] == "warehouse.dim_customer")
+        assert dim_customer["data_type"] == "table"
+        assert set(dim_customer["select_from"]) == {"analytics.customer_summary", "raw.customer_addresses"}
+
 
 class TestImputeMissingConnectingNodesCommandIntegration:
     """Integration tests for impute_missing_connecting_nodes command."""
