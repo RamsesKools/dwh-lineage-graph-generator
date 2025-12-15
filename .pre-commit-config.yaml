@@ -1,0 +1,32 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: check-ast
+      - id: check-added-large-files
+      - id: check-case-conflict
+      - id: check-json
+      - id: check-toml
+      - id: check-xml
+      - id: check-yaml
+        args: ["--allow-multiple-documents"]
+      - id: check-merge-conflict
+      # - id: check-shebang-scripts-are-executable # not yet sure if we want to use this hook
+      - id: end-of-file-fixer
+      - id: mixed-line-ending
+      - id: trailing-whitespace
+      - id: check-docstring-first
+      - id: debug-statements
+      # option to protect main branch from direct commits
+      # - id: no-commit-to-branch
+      #   args: [--branch, main]
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.11.13  # latest as of Jun 5, 2025
+    hooks:
+      - id: ruff
+        name: ruff check
+        args: [--fix]
+        types_or: [python, pyi]
+      - id: ruff-format
+        name: ruff format
+        types_or: [python, pyi]
