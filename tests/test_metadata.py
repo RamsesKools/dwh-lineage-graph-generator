@@ -1,6 +1,9 @@
 """Unit tests for metadata module."""
 
 from typing import cast
+
+import pytest
+
 from lineage.models import Connection, Node, ConnectionType
 from lineage.config import CONNECTION_STYLES, DEFAULT_CONNECTION_TYPE
 
@@ -140,3 +143,39 @@ class TestConnection:
         conn2 = Connection(from_id="node2", to_id="node3")
 
         assert conn1 != conn2
+
+
+class TestNodeValidation:
+    """Tests for Node validation in __post_init__."""
+
+    def test_node_empty_id_raises_error(self):
+        """Test that empty id raises ValueError."""
+        with pytest.raises(ValueError, match="id must be a non-empty string"):
+            Node(id="", label="Test", data_type="table", data_level="base")
+
+    def test_node_empty_label_raises_error(self):
+        """Test that empty label raises ValueError."""
+        with pytest.raises(ValueError, match="label must be a non-empty string"):
+            Node(id="test", label="", data_type="table", data_level="base")
+
+    def test_node_select_from_not_list_raises_error(self):
+        """Test that select_from must be a list."""
+        with pytest.raises(ValueError, match="select_from must be a list"):
+            Node(
+                id="test",
+                label="Test",
+                data_type="table",
+                data_level="base",
+                select_from="not_a_list",  # type: ignore
+            )
+
+    def test_node_select_from_contains_non_string_raises_error(self):
+        """Test that select_from must contain only strings."""
+        with pytest.raises(ValueError, match="select_from must contain only strings"):
+            Node(
+                id="test",
+                label="Test",
+                data_type="table",
+                data_level="base",
+                select_from=["valid", 123, "another"],  # type: ignore
+            )
