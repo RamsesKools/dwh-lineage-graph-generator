@@ -173,3 +173,19 @@ The resulting `.mmd` file can be viewed in any Mermaid-compatible viewer, IDE ex
 ## License
 
 See [LICENSE](LICENSE) file for details.
+
+
+## Development backlog
+
+- [x] First working version for creating lineage graph
+  - [x] Create nodes based on create statements in SQL files.
+  - [x] Create connections based on select from and joins and such in SQL.
+  - [x] Generate Mermaid graph
+  - [x] Allow filtering: downstream/upstream/focus on connecting nodes etc.
+- [x] Add CI + Pre-commit
+- [x] Increase pytest test coverage to 90% or higher.
+- [x] Add mypy strict checking + fix type errors.
+- [ ] Let's try adding parsing lineage data from a SQL database.
+  - [ ] SQLite first? Because we can quite easily create a sqlite database for testing purposes.
+- [ ] Remove JSON lineage data format.
+- [ ] Let's think about adding an interactive front-end?
