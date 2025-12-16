@@ -168,6 +168,7 @@ The resulting `.mmd` file can be viewed in any Mermaid-compatible viewer, IDE ex
 - **[Development](docs/development.md)** - Development setup and patterns
 - **[Architecture](docs/code_architecture.md)** - System architecture and design
 - **[File Organization](docs/file_organization.md)** - Codebase structure
+- **[Documentation Style](docs/doc_style.md)** - How docs are written and maintained
 
 ## License
 

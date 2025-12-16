@@ -79,6 +79,7 @@ Current docs:
 - `development.md`: Development setup, testing, patterns, coding style
 - `code_architecture.md`: High-level design and extension points
 - `file_organization.md`: This file
+- `doc_style.md`: Documentation style guide and principles
 
 ## Naming Conventions
 
