@@ -122,3 +122,7 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# Ignore pytest coverage files
+python_test_report.xml
+tests/.tmp/
