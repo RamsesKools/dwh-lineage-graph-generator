@@ -173,7 +173,7 @@ class TestMermaidGenerator:
             Node(
                 id=f"node_{i}",
                 label=f"Node {i}",
-                data_type=dt,  # type: ignore
+                data_type=dt,
                 data_level="base",
             )
             for i, dt in enumerate(data_types)
@@ -194,7 +194,7 @@ class TestMermaidGenerator:
                 id=f"node_{i}",
                 label=f"Node {i}",
                 data_type="table",
-                data_level=dl,  # type: ignore
+                data_level=dl,
             )
             for i, dl in enumerate(data_levels)
         ]

@@ -90,7 +90,7 @@ class TestExtractExistingNodeIds:
             None,
             {"id": "node_b"},
         ]
-        existing_ids = extract_existing_node_ids(nodes_data)
+        existing_ids = extract_existing_node_ids(nodes_data)  # type: ignore[arg-type]
         assert existing_ids == {"node_a", "node_b"}
 
 

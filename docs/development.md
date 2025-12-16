@@ -29,6 +29,33 @@ poetry run pytest --cov
 poetry run pytest tests/test_graph.py::test_upstream_nodes
 ```
 
+## Type Checking
+
+The project uses mypy in strict mode for static type checking.
+
+```bash
+# Check all source and test files
+make check_mypy
+
+# Or directly with poetry
+poetry run mypy src/lineage tests --pretty
+```
+
+### Mypy Configuration
+
+Mypy is configured in [pyproject.toml](../pyproject.toml) with:
+
+- `strict = true` - Enables all strict type checking flags
+- `python_version = "3.12"` - Target Python version
+- Test files have relaxed rules (`disallow_untyped_defs = false`)
+
+### Type Hint Guidelines
+
+- All function signatures in `src/` must have complete type annotations
+- Import types from `lineage.config` for `DataType`, `DataLevel`, `ConnectionType`
+- Use `list[str]`, `dict[str, Any]` (not `List`, `Dict` from typing)
+- Add `from __future__ import annotations` to avoid forward reference quotes
+
 ## Key Implementation Patterns
 
 ### Node Deduplication
