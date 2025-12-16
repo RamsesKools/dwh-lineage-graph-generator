@@ -151,8 +151,9 @@ def _build_table_name(table: exp.Table) -> str | None:
         return None
 
     # Build the qualified name based on available parts
-    # Priority: schema.table (ignoring catalog for now)
-    if schema:
+    if schema and catalog:
+        return f"{catalog}.{schema}.{name}"
+    elif schema:
         return f"{schema}.{name}"
     else:
         # Return unqualified name (caller will filter it out if needed)

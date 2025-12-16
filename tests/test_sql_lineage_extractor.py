@@ -340,7 +340,7 @@ class TestThreeLevelNamespace:
         result = extract_lineage_from_statement(parsed)
         # Currently extracts schema.table, ignoring catalog
         # This test documents current behavior
-        assert result == ["source_schema.source_table"]
+        assert result == ["source_catalog.source_schema.source_table"]
 
     def test_three_level_with_joins(self):
         """Test 3-level namespace with multiple tables in joins."""
@@ -352,7 +352,7 @@ class TestThreeLevelNamespace:
         """
         parsed = sqlglot.parse_one(sql, dialect="redshift")
         result = extract_lineage_from_statement(parsed)
-        assert result == ["schema1.table1", "schema2.table2"]
+        assert result == ["catalog1.schema1.table1", "catalog2.schema2.table2"]
 
     def test_mixed_two_and_three_level(self):
         """Test mixing 2-level and 3-level qualified names."""
@@ -365,7 +365,7 @@ class TestThreeLevelNamespace:
         parsed = sqlglot.parse_one(sql, dialect="redshift")
         result = extract_lineage_from_statement(parsed)
         # Both should be extracted (catalog ignored in 3-level)
-        assert result == ["schema2.table1", "schema3.table2"]
+        assert result == ["catalog1.schema2.table1", "schema3.table2"]
 
     def test_quoted_three_level_namespace(self):
         """Test 3-level namespace with quoted identifiers."""
@@ -375,7 +375,7 @@ class TestThreeLevelNamespace:
         """
         parsed = sqlglot.parse_one(sql, dialect="redshift")
         result = extract_lineage_from_statement(parsed)
-        assert result == ["schema2.table1"]
+        assert result == ["catalog2.schema2.table1"]
 
     def test_databricks_three_level(self):
         """Test Databricks-style 3-level namespace."""
@@ -388,7 +388,7 @@ class TestThreeLevelNamespace:
         parsed = sqlglot.parse_one(sql, dialect="databricks")
         result = extract_lineage_from_statement(parsed)
         # Should extract schema.table pairs
-        assert result == ["raw.customers", "raw.orders"]
+        assert result == ["main.raw.customers", "main.raw.orders"]
 
     def test_redshift_cluster_qualified(self):
         """Test Redshift cluster-qualified names."""
@@ -398,4 +398,4 @@ class TestThreeLevelNamespace:
         """
         parsed = sqlglot.parse_one(sql, dialect="redshift")
         result = extract_lineage_from_statement(parsed)
-        assert result == ["schema2.table1"]
+        assert result == ["cluster1.schema2.table1"]
