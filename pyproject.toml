@@ -25,6 +25,7 @@ types-networkx = "^3.6.1.20251212"
 types-pyyaml = "^6.0.12.20250915"
 pre-commit = "^4.5.0"
 ruff = "^0.14.9"
+pytest-cov = "^7.0.0"
 
 [tool.poetry.scripts]
 lineage = "lineage.cli:cli"

@@ -22,7 +22,7 @@ check: ##@check >> check ruff and mypy
 	$(MAKE) check_ruff
 
 pytest: ##@tests >> run tests with pytest
-	poetry run pytest --cov=ff.exampleproject --junitxml=python_test_report.xml --basetemp=./tests/.tmp
+	poetry run pytest --cov=lineage --junitxml=python_test_report.xml --basetemp=./tests/.tmp
 
 all_check_test: ##@tests >> run all checks and tests
 	$(MAKE) check
