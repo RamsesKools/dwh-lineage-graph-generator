@@ -17,13 +17,13 @@ class TestLineageGraph:
         don't depend on specific styles.
         """
         return [
-            Node(id="node_a", label="Node A", data_type="table", data_level="level1"),
-            Node(id="node_b", label="Node B", data_type="table", data_level="level1"),
-            Node(id="node_c", label="Node C", data_type="view", data_level="level2"),
-            Node(id="node_d", label="Node D", data_type="table", data_level="level3"),
-            Node(id="node_e", label="Node E", data_type="table", data_level="level4"),
-            Node(id="node_f", label="Node F", data_type="table", data_level="level5"),
-            Node(id="node_g", label="Node G", data_type="view", data_level="level6"),
+            Node(id="node_a", label="Node A", data_type="table", data_level="level1"),  # type: ignore[arg-type]
+            Node(id="node_b", label="Node B", data_type="table", data_level="level1"),  # type: ignore[arg-type]
+            Node(id="node_c", label="Node C", data_type="view", data_level="level2"),  # type: ignore[arg-type]
+            Node(id="node_d", label="Node D", data_type="table", data_level="level3"),  # type: ignore[arg-type]
+            Node(id="node_e", label="Node E", data_type="table", data_level="level4"),  # type: ignore[arg-type]
+            Node(id="node_f", label="Node F", data_type="table", data_level="level5"),  # type: ignore[arg-type]
+            Node(id="node_g", label="Node G", data_type="view", data_level="level6"),  # type: ignore[arg-type]
         ]
 
     @pytest.fixture

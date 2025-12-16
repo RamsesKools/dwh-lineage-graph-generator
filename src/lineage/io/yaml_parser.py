@@ -47,7 +47,9 @@ def load_lineage_file(file_path: str | Path) -> tuple[list[Node], list[Connectio
     return nodes, connections
 
 
-def _normalize_format(data: dict[str, Any]) -> tuple[list[dict], list[dict]]:
+def _normalize_format(
+    data: dict[str, Any],
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
     """Normalize lineage data to common format.
 
     Supports two formats:
@@ -76,7 +78,9 @@ def _normalize_format(data: dict[str, Any]) -> tuple[list[dict], list[dict]]:
     return nodes_data, connections_data
 
 
-def _extract_connections_from_nodes(nodes_data: list[dict]) -> list[dict]:
+def _extract_connections_from_nodes(
+    nodes_data: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
     """Extract connections from node select_from/connected_to fields.
 
     Args:
@@ -135,7 +139,7 @@ def _extract_connections_from_nodes(nodes_data: list[dict]) -> list[dict]:
     return connections
 
 
-def _parse_nodes(nodes_data: list[dict]) -> list[Node]:
+def _parse_nodes(nodes_data: list[dict[str, Any]]) -> list[Node]:
     """Parse node dictionaries into Node objects.
 
     Args:
@@ -170,7 +174,7 @@ def _parse_nodes(nodes_data: list[dict]) -> list[Node]:
     return nodes
 
 
-def _parse_connections(connections_data: list[dict]) -> list[Connection]:
+def _parse_connections(connections_data: list[dict[str, Any]]) -> list[Connection]:
     """Parse connection dictionaries into Connection objects.
 
     Args:

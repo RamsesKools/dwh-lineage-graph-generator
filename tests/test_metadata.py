@@ -1,6 +1,7 @@
 """Unit tests for metadata module."""
 
-from lineage.models import Connection, Node
+from typing import cast
+from lineage.models import Connection, Node, ConnectionType
 from lineage.config import CONNECTION_STYLES, DEFAULT_CONNECTION_TYPE
 
 
@@ -103,7 +104,7 @@ class TestConnection:
     def test_connection_creation_with_explicit_type(self):
         """Test creating a Connection with explicit connection type."""
         # Use the second connection type (not the default)
-        non_default_type = list(CONNECTION_STYLES.keys())[1]
+        non_default_type = cast(ConnectionType, list(CONNECTION_STYLES.keys())[1])
         conn = Connection(
             from_id="node1", to_id="node2", connection_type=non_default_type
         )
@@ -127,7 +128,7 @@ class TestConnection:
     def test_connection_equality(self):
         """Test that two connections with same data are equal."""
         # Use second connection type for testing equality
-        test_type = list(CONNECTION_STYLES.keys())[1]
+        test_type = cast(ConnectionType, list(CONNECTION_STYLES.keys())[1])
         conn1 = Connection(from_id="node1", to_id="node2", connection_type=test_type)
         conn2 = Connection(from_id="node1", to_id="node2", connection_type=test_type)
 

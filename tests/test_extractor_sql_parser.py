@@ -1,5 +1,8 @@
 """Unit tests for extractor.sql_parser module."""
 
+import sqlglot
+from sqlglot import exp
+
 from lineage.io.sql_parser import (
     extract_node_from_create,
     extract_nodes_from_sql_files,
@@ -13,11 +16,10 @@ class TestExtractNodeFromCreate:
 
     def test_extract_view_node(self):
         """Test extracting node from CREATE VIEW statement."""
-        import sqlglot
-
         sql = "CREATE VIEW schema_name.view_name AS SELECT * FROM schema1.table1"
         statements = sqlglot.parse(sql, read="redshift")
         statement = statements[0]
+        assert isinstance(statement, exp.Create)
 
         node = extract_node_from_create(statement)
 
@@ -30,11 +32,10 @@ class TestExtractNodeFromCreate:
 
     def test_extract_table_node(self):
         """Test extracting node from CREATE TABLE statement."""
-        import sqlglot
-
         sql = "CREATE TABLE schema_name.table_name (id INT, name VARCHAR)"
         statements = sqlglot.parse(sql, read="redshift")
         statement = statements[0]
+        assert isinstance(statement, exp.Create)
 
         node = extract_node_from_create(statement)
 
@@ -47,11 +48,10 @@ class TestExtractNodeFromCreate:
 
     def test_extract_ctas_node(self):
         """Test extracting node from CREATE TABLE AS SELECT."""
-        import sqlglot
-
         sql = "CREATE TABLE schema_name.new_table AS SELECT * FROM schema2.other_table"
         statements = sqlglot.parse(sql, read="redshift")
         statement = statements[0]
+        assert isinstance(statement, exp.Create)
 
         node = extract_node_from_create(statement)
 
@@ -62,11 +62,10 @@ class TestExtractNodeFromCreate:
 
     def test_ignore_non_table_view(self):
         """Test that non-TABLE/VIEW creates are ignored."""
-        import sqlglot
-
         sql = "CREATE INDEX idx_name ON schema_name.table_name (col1)"
         statements = sqlglot.parse(sql, read="redshift")
         statement = statements[0]
+        assert isinstance(statement, exp.Create)
 
         node = extract_node_from_create(statement)
 
@@ -74,11 +73,10 @@ class TestExtractNodeFromCreate:
 
     def test_ignore_unqualified_name(self):
         """Test that objects without schema qualification are ignored."""
-        import sqlglot
-
         sql = "CREATE TABLE table_name (id INT)"
         statements = sqlglot.parse(sql, read="redshift")
         statement = statements[0]
+        assert isinstance(statement, exp.Create)
 
         node = extract_node_from_create(statement)
 
@@ -86,8 +84,6 @@ class TestExtractNodeFromCreate:
 
     def test_extract_with_complex_view(self):
         """Test extracting from view with complex SQL (CTEs, joins)."""
-        import sqlglot
-
         sql = """
         CREATE VIEW schema.complex_view AS
         WITH cte AS (
@@ -99,6 +95,7 @@ class TestExtractNodeFromCreate:
         """
         statements = sqlglot.parse(sql, read="redshift")
         statement = statements[0]
+        assert isinstance(statement, exp.Create)
 
         node = extract_node_from_create(statement)
 

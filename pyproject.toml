@@ -20,9 +20,24 @@ pyyaml = "^6.0.3"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.4.2"
+mypy = "^1.19.1"
+types-networkx = "^3.6.1.20251212"
+types-pyyaml = "^6.0.12.20250915"
 
 [tool.poetry.scripts]
 lineage = "lineage.cli:cli"
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+pretty = true
+mypy_path = "src"
+explicit_package_bases = true
+
+[[tool.mypy.overrides]]
+module = "tests.*"
+disallow_untyped_defs = false
+disallow_incomplete_defs = false
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]

@@ -35,7 +35,7 @@ class TestExtractReferencedNodeIds:
             {"id": "node_b", "select_from": None},
             {"id": "node_c"},  # Missing select_from
         ]
-        referenced_ids = extract_referenced_node_ids(nodes_data)
+        referenced_ids = extract_referenced_node_ids(nodes_data)  # type: ignore[arg-type]
         assert referenced_ids == set()
 
     def test_extract_ignores_non_dict_nodes(self):
@@ -45,7 +45,7 @@ class TestExtractReferencedNodeIds:
             "invalid_node",
             None,
         ]
-        referenced_ids = extract_referenced_node_ids(nodes_data)
+        referenced_ids = extract_referenced_node_ids(nodes_data)  # type: ignore[arg-type]
         assert referenced_ids == {"node_b"}
 
 

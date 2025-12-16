@@ -94,7 +94,7 @@ class MermaidGenerator:
             List of Mermaid class assignment statements
         """
         # Group nodes by data level
-        level_groups: dict[str, list[str]] = {}
+        level_groups: dict[DataLevel, list[str]] = {}
         for node in self.nodes:
             level = node.data_level
             if level not in level_groups:

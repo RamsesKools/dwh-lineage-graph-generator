@@ -17,14 +17,12 @@ class TestWriteNodesToYaml:
                 id="schema1.table1",
                 label="schema1.table1",
                 data_type="table",
-                data_level=None,
                 select_from=[],
             ),
             Node(
                 id="schema1.view1",
                 label="schema1.view1",
                 data_type="view",
-                data_level=None,
                 select_from=[],
             ),
         ]
@@ -68,7 +66,7 @@ class TestWriteNodesToYaml:
     def test_write_empty_node_list(self, tmp_path):
         """Test writing empty list of nodes."""
         output_file = tmp_path / "output.yaml"
-        nodes = []
+        nodes: list[Node] = []
 
         write_nodes_to_yaml(nodes, output_file)
 
@@ -85,14 +83,12 @@ class TestWriteNodesToYaml:
                 id="schema1.zulu",
                 label="schema1.zulu",
                 data_type="table",
-                data_level=None,
                 select_from=[],
             ),
             Node(
                 id="schema1.alpha",
                 label="schema1.alpha",
                 data_type="view",
-                data_level=None,
                 select_from=[],
             ),
         ]
@@ -116,14 +112,12 @@ class TestWriteNodesToYaml:
                 id="schema1.table1",
                 label="schema1.table1",
                 data_type="table",
-                data_level=None,
                 select_from=[],
             ),
             Node(
                 id="schema1.table2",
                 label="schema1.table2",
                 data_type="table",
-                data_level=None,
                 select_from=[],
             ),
         ]
@@ -135,14 +129,12 @@ class TestWriteNodesToYaml:
                 id="schema1.table2",
                 label="schema1.table2",
                 data_type="table",
-                data_level=None,
                 select_from=[],
             ),
             Node(
                 id="schema1.table3",
                 label="schema1.table3",
                 data_type="view",
-                data_level=None,
                 select_from=[],
             ),
         ]
@@ -210,7 +202,6 @@ class TestWriteNodesToYaml:
                 id="schema1.table1",
                 label="schema1.table1",
                 data_type="table",
-                data_level=None,
                 select_from=[],
             ),
         ]
@@ -252,7 +243,6 @@ nodes:
                 id="schema1.table3",
                 label="schema1.table3",
                 data_type="table",
-                data_level=None,
                 select_from=[],
             ),
         ]

@@ -132,11 +132,11 @@ def create_missing_node(node_id: str) -> dict[str, Any]:
 class ImputationStats:
     """Track statistics about missing node imputation operations."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.nodes_added = 0
         self.missing_node_ids: list[str] = []
 
-    def __str__(self):
+    def __str__(self) -> str:
         result = f"Imputation Summary:\n  - Missing nodes added: {self.nodes_added}"
         if self.missing_node_ids:
             result += "\n  - Added node IDs:"

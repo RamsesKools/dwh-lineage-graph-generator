@@ -5,7 +5,7 @@ Tests for SQL lineage extraction functionality.
 import sqlglot
 from sqlglot import exp
 
-from src.lineage.io.sql_lineage_extractor import (
+from lineage.io.sql_lineage_extractor import (
     extract_lineage_from_statement,
     _extract_cte_names,
     _extract_table_references,
@@ -257,6 +257,7 @@ class TestBuildTableName:
         sql = "SELECT * FROM schema1.table1"
         parsed = sqlglot.parse_one(sql, dialect="redshift")
         table = parsed.find(exp.Table)
+        assert table is not None
         result = _build_table_name(table)
         assert result == "schema1.table1"
 
@@ -265,6 +266,7 @@ class TestBuildTableName:
         sql = "SELECT * FROM table1"
         parsed = sqlglot.parse_one(sql, dialect="redshift")
         table = parsed.find(exp.Table)
+        assert table is not None
         result = _build_table_name(table)
         assert result == "table1"
 

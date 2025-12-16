@@ -1,5 +1,7 @@
 """Graph operations for lineage analysis using NetworkX."""
 
+from __future__ import annotations
+
 from typing import Literal
 
 import networkx as nx
@@ -28,7 +30,7 @@ class LineageGraph:
 
     def _build_graph(
         self, nodes: list[Node], connections: list[Connection]
-    ) -> nx.DiGraph:
+    ) -> nx.DiGraph[str]:
         """Build NetworkX directed graph from nodes and connections.
 
         Args:
@@ -38,7 +40,7 @@ class LineageGraph:
         Returns:
             NetworkX directed graph
         """
-        G = nx.DiGraph()
+        G: nx.DiGraph[str] = nx.DiGraph()
 
         # Add nodes with their data as attributes
         for node in nodes:

@@ -8,6 +8,7 @@ from sqlglot import exp
 
 from lineage.io.sql_lineage_extractor import extract_lineage_from_statement
 from lineage.models import Node
+from lineage.config import DataType, DataLevel
 
 
 def extract_nodes_from_sql_files(pattern: str) -> list[Node]:
@@ -105,7 +106,8 @@ def extract_node_from_create(statement: exp.Create) -> Node | None:
     node_id = f"{schema_name}.{table_name}"
 
     # Determine data type
-    data_type = "view" if statement.kind == "VIEW" else "table"
+    data_type: DataType = "view" if statement.kind == "VIEW" else "table"
+    data_level: DataLevel = "unknown"
 
     select_from = extract_lineage_from_statement(statement)
 
@@ -113,6 +115,6 @@ def extract_node_from_create(statement: exp.Create) -> Node | None:
         id=node_id,
         label=node_id,
         data_type=data_type,
-        data_level=None,
+        data_level=data_level,
         select_from=select_from,
     )

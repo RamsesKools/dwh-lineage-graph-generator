@@ -5,6 +5,8 @@ from typing import cast
 
 from lineage.config import DEFAULT_CONNECTION_TYPE, DataType, DataLevel, ConnectionType
 
+__all__ = ["Node", "Connection", "DataType", "DataLevel", "ConnectionType"]
+
 
 @dataclass
 class Node:
@@ -24,19 +26,13 @@ class Node:
     data_level: DataLevel = field(default="unknown")
     select_from: list[str] = field(default_factory=list[str])
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         """Validate and normalize field values after initialization."""
         if not isinstance(self.id, str) or not self.id:
             raise ValueError("id must be a non-empty string")
 
         if not isinstance(self.label, str) or not self.label:
             raise ValueError("label must be a non-empty string")
-
-        if self.data_type is None or self.data_type == "":
-            self.data_type = "unknown"
-
-        if self.data_level is None or self.data_level == "":
-            self.data_level = "unknown"
 
         if not isinstance(self.select_from, list):
             raise ValueError("select_from must be a list")
