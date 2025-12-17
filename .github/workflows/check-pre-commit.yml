@@ -1,7 +1,10 @@
 name: Check Pre-commit
 
 on:
-  pull_request:
+  # In the future it makes more sense to only run on pull requests
+  push:
+    branch: main
+  # pull_request:
   workflow_dispatch:  # to allow manual triggering
 
 concurrency:

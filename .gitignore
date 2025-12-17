@@ -125,4 +125,5 @@ cython_debug/
 
 # Ignore pytest coverage files
 python_test_report.xml
+python_test_report_cov.xml
 tests/.tmp/

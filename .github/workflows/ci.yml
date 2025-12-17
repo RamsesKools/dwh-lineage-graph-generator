@@ -43,15 +43,15 @@ jobs:
     - name: Check mypy
       run: make check_mypy
 
-    - name: Run pytests
-      run: make pytest
+    - name: Run pytests with coverage
+      run: make pytest_cov
 
     - name: Upload Test Artifacts
       uses: actions/upload-artifact@v4
       if: always()
       with:
           name: test_report
-          path: python_test_report.xml
+          path: python_test_report_cov.xml
 
   publish-pytest-results:
     needs: [CI]

@@ -1,6 +1,15 @@
 # Data Lineage Graph Generator
 
-A Python CLI tool that generates Mermaid diagrams for data warehouse lineage visualization. It extracts metadata from SQL files or YAML/JSON configuration, builds a graph of data dependencies using NetworkX, and renders visual diagrams showing how data flows through tables, views, and other data objects.
+[![Check Pre-commit](https://github.com/RamsesKools/dwh-lineage-graph-generator/actions/workflows/check-pre-commit.yml/badge.svg)](https://github.com/RamsesKools/dwh-lineage-graph-generator/actions/workflows/check-pre-commit.yml)
+[![CI](https://github.com/RamsesKools/dwh-lineage-graph-generator/actions/workflows/ci.yml/badge.svg)](https://github.com/RamsesKools/dwh-lineage-graph-generator/actions/workflows/ci.yml)
+[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
+[![mypy](https://img.shields.io/badge/mypy-checked-blue)](https://mypy-lang.org/)
+[![pytest](https://img.shields.io/badge/pytest-enabled-blue)](https://docs.pytest.org/)
+[![coverage](https://img.shields.io/badge/coverage-90%25+-brightgreen)](https://github.com/RamsesKools/dwh-lineage-graph-generator)
+
+A Python CLI tool build with click that generates Mermaid diagrams for data warehouse lineage visualization.
+It extracts metadata from SQL files via the sqlglot library.
+It stores this lineage information in YAML format and builds a graph of data dependencies using NetworkX, and renders visual diagrams showing how data flows through tables, views, and other data objects.
 
 ## Quick Start
 
