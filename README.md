@@ -6,6 +6,7 @@
 [![mypy](https://img.shields.io/badge/mypy-checked-blue)](https://mypy-lang.org/)
 [![pytest](https://img.shields.io/badge/pytest-enabled-blue)](https://docs.pytest.org/)
 [![coverage](https://img.shields.io/badge/coverage-90%25+-brightgreen)](https://github.com/RamsesKools/dwh-lineage-graph-generator)
+[![License: MIT](https://img.shields.io/badge/License-MIT-success.svg)](https://opensource.org/licenses/MIT)
 
 A Python CLI tool build with click that generates Mermaid diagrams for data warehouse lineage visualization.
 It extracts metadata from SQL files via the sqlglot library.
